@@ -3,7 +3,6 @@ import "@aws-amplify/ui-react/styles.css";
 import { Dashboard } from "./Dashboard.jsx";
 
 function App() {
-  
   // Personalización de colores para el formulario de login/registro
   const theme = {
     name: "financetheme",
@@ -41,9 +40,9 @@ function App() {
   return (
     <div className="bg-[#F0F2F5] min-h-screen">
       <Authenticator components={components} theme={theme}>
-        {({ signOut, user }) => (
+        {({ signOut }) => (
           <main>
-            <Dashboard signOut={signOut} user={user} />
+            <Dashboard signOut={signOut} />
           </main>
         )}
       </Authenticator>

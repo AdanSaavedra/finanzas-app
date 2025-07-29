@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { post, get } from "aws-amplify/api";
 import { fetchAuthSession } from "aws-amplify/auth";
+import { fetchUserAttributes } from "aws-amplify/auth";
 import dayjs from "dayjs";
 
 const neumorphicCard =
@@ -242,9 +243,23 @@ const Report = ({ transactions }) => {
   );
 };
 
-export const Dashboard = ({ signOut, user }) => {
+export const Dashboard = ({ signOut }) => {
   const [transactions, setTransactions] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [userEmail, setUserEmail] = useState("");
+  useEffect(() => {
+    const getUserEmail = async () => {
+      try {
+        const attributes = await fetchUserAttributes();
+        setUserEmail(attributes.email || "Usuario");
+      } catch (err) {
+        console.error("Error al obtener el email:", err);
+        setUserEmail("Usuario");
+      }
+    };
+
+    getUserEmail();
+  }, []);
 
   const fetchTransactions = useCallback(async () => {
     setIsLoading(true);
@@ -279,7 +294,7 @@ export const Dashboard = ({ signOut, user }) => {
     <div className="container mx-auto p-4 md:p-8">
       <header className="flex justify-between items-center mb-8">
         <h1 className="text-3xl font-bold text-gray-800">
-          Hola, {user?.attributes?.email || "Usuario"}!
+          Hola, {userEmail.split("@")[0] || "Usuario"}!
         </h1>
         <button onClick={signOut} className={neumorphicButton}>
           Cerrar Sesión
