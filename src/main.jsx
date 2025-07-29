@@ -4,11 +4,15 @@ import "./index.css";
 import App from "./App.jsx";
 import { Amplify } from "aws-amplify";
 
+console.log("UserPoolID", import.meta.env.VITE_COGNITO_USER_POOL_ID);
+console.log("ClientID", import.meta.env.VITE_COGNITO_USER_POOL_CLIENT_ID);
+console.log("API URL", import.meta.env.VITE_API_GATEWAY_INVOKE_URL);
 Amplify.configure({
   Auth: {
-    region: import.meta.env.VITE_AWS_REGION,
-    userPoolId: import.meta.env.VITE_COGNITO_USER_POOL_ID,
-    userPoolClientId: import.meta.env.VITE_COGNITO_USER_POOL_CLIENT_ID,
+    Cognito: {
+      userPoolId: import.meta.env.VITE_COGNITO_USER_POOL_ID,
+      userPoolClientId: import.meta.env.VITE_COGNITO_USER_POOL_CLIENT_ID,
+    },
   },
   API: {
     REST: {

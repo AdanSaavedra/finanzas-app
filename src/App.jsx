@@ -3,6 +3,7 @@ import "@aws-amplify/ui-react/styles.css";
 import { Dashboard } from "./Dashboard.jsx";
 
 function App() {
+  
   // Personalización de colores para el formulario de login/registro
   const theme = {
     name: "financetheme",
